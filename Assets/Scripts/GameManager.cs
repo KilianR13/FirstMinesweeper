@@ -5,10 +5,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
+    [Header("Menus")]
     [SerializeField] GameObject startMenu;
     [SerializeField] private GameObject loseMenu;
     [SerializeField] private GameObject winMenu;
     [SerializeField] private GameObject errorMenu;
+
+    [Header("Game SFX")]
+    [SerializeField] private AudioSource bombExplosion;
+    [SerializeField] private AudioSource gameWin;
 
     private int totalBombs;
     private int flagsPlanted;
@@ -89,6 +94,7 @@ public class GameManager : MonoBehaviour
     public static void GameOver()
     {
         gameOver = true;
+        gm.bombExplosion.Play();
         Generator.gen.triggerAllBombs();
         if (gm != null)
         {
@@ -99,6 +105,7 @@ public class GameManager : MonoBehaviour
     public static void GameWon()
     {
         gameOver = true;
+        gm.gameWin.Play();
         if (gm != null)
         {
             gm.winMenu.SetActive(true);
