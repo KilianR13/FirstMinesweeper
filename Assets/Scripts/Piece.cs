@@ -119,6 +119,12 @@ public class Piece : MonoBehaviour
                 {
                     Generator.gen.EmptyPiecesCheck(x, y);
                 }
+                if (hasFlag)
+                {
+                    flagSprite.enabled = false;
+                    hasFlag = false;
+                    GameManager.gm.UnregisterFlag(bomb);
+                }
                 GetComponent<SpriteRenderer>().material.color = Color.white;
             }
             flagSprite.enabled = false;
