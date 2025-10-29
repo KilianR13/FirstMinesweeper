@@ -176,4 +176,8 @@ public class GameManager : MonoBehaviour
         ErrorManager.setErrMsg(error);
         errorMenu.SetActive(true);
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
