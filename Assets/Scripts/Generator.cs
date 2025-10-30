@@ -10,7 +10,6 @@ public class Generator : MonoBehaviour
     [SerializeField] public Transform boardContainer;
     
 
-
     public static Generator gen;
 
     void Awake()
@@ -21,7 +20,7 @@ public class Generator : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // O log de advertencia
+            Destroy(gameObject);
         }
     }
 
@@ -43,7 +42,6 @@ public class Generator : MonoBehaviour
 
     public void Generate()
     {
-        // Crear el array con las dimensiones correctas
         map = new GameObject[width][];
 
         for (int i = 0; i < width; i++)
@@ -51,7 +49,6 @@ public class Generator : MonoBehaviour
             map[i] = new GameObject[height];
         }
 
-        // Crear las celdas con índices consistentes
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -193,9 +190,9 @@ public class Generator : MonoBehaviour
         }
     }
 
+    // "Activa" todas las bombas del tablero.
     public void triggerAllBombs()
     {
-
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -208,8 +205,7 @@ public class Generator : MonoBehaviour
         }
     }
 
-    
-    
+    // Borra todo el tablero para evitar errores.
     public void ClearBoard()
     {
         if (boardContainer != null)

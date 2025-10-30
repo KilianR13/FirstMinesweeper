@@ -1,4 +1,3 @@
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +24,7 @@ public class Piece : MonoBehaviour
         {
             flagSprite.enabled = false;
         }
+        // Para hacer debug de la posición de las bombas
         // if (bomb != false)
         // {
         //     bombSprite.enabled = true;
@@ -77,6 +77,7 @@ public class Piece : MonoBehaviour
         bombSprite.enabled = true;
     }
 
+    // Funcion que se llama cada vez que se pulsa el botón derecho.
     public void plantFlag()
     {
         if (!hasFlag)
@@ -119,6 +120,7 @@ public class Piece : MonoBehaviour
                 {
                     Generator.gen.EmptyPiecesCheck(x, y);
                 }
+                // Quita las banderas ya plantadas y las deregistra.
                 if (hasFlag)
                 {
                     flagSprite.enabled = false;
@@ -133,18 +135,21 @@ public class Piece : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (GameManager.gameOver) // Comprueba primero si no ha perdido
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0)) // Click izquierdo
         {
-            if (!GameManager.gameOver)
-            {
-                drawbomb();
-            }
+            drawbomb();
         }
+        
         if (Input.GetMouseButtonDown(1)) // Click derecho
         {
             if (!ischeckedPiece())
             {
-                plantFlag();    
+                plantFlag();
             }
         }
     }

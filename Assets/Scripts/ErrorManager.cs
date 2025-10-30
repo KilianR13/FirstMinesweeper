@@ -12,7 +12,6 @@ public class ErrorManager : MonoBehaviour
     public static ErrorManager errmng;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         if (errmng == null)
@@ -27,18 +26,6 @@ public class ErrorManager : MonoBehaviour
 
     public static void setErrMsg(String error)
     {
-        // if (errmng == null)
-        // {
-        //     Debug.LogError("ErrorManager no ha sido inicializado.");
-        //     return;
-        // }
-
-        // if (errmng.errMsg == null)
-        // {
-        //     Debug.LogError("El campo errMsg no está asignado en el Inspector.");
-        //     return;
-        // }
-
         errmng.errMsg.SetText(error);
     }
 

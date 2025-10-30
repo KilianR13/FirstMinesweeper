@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         if (gm == null)
         {
             gm = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // El Game Manager persiste entre partidas.
         }
         else
         {
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        // Activa y desactiva los paneles correctos para hacer la UI verse bien.
         startMenu.SetActive(true);
         loseMenu.SetActive(false);
         winMenu.SetActive(false);
@@ -55,28 +56,28 @@ public class GameManager : MonoBehaviour
         Generator.gen.ClearBoard();
 
         String stringWidth = StartMenu.instance.width.GetComponentInChildren<TMP_InputField>().text.ToString();
-        if (!int.TryParse(stringWidth, out int width))
+        if (!int.TryParse(stringWidth, out int width)) // Se asegura de que el jugador no introduzca letras.
         {
             TriggerError("Please only input whole numbers.");
             return;
         }
 
         String stringHeight = StartMenu.instance.height.GetComponentInChildren<TMP_InputField>().text.ToString();
-        if (!int.TryParse(stringHeight, out int height))
+        if (!int.TryParse(stringHeight, out int height)) // Se asegura de que el jugador no introduzca letras.
         {
             TriggerError("Please only input whole numbers.");
             return;
         }
 
         String stringBombs = StartMenu.instance.bombs.GetComponentInChildren<TMP_InputField>().text.ToString();
-        if (!int.TryParse(stringBombs, out int bombs))
+        if (!int.TryParse(stringBombs, out int bombs)) // Se asegura de que el jugador no introduzca letras.
         {
             TriggerError("Please only input whole numbers.");
             return;
         }
 
 
-        if (!checkErrors(width, height, bombs))
+        if (!checkErrors(width, height, bombs)) // Comprueba que no haya otro tipo de errores. Si es falso, es que hay errores.
         {
             return;
         }
@@ -139,7 +140,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void ChangeSettings()
     {
         loseMenu.SetActive(false);
@@ -148,28 +148,29 @@ public class GameManager : MonoBehaviour
         Generator.gen.boardContainer.gameObject.SetActive(false);
     }
     
+    // Comprueba errores con los valores introducidos. Si detecta un error, devuelve falso inmediatamente.
     private bool checkErrors(int width, int height, int bombs)
     {
         bool clearOfErrors = true;
-        if (width <= 0)
+        if (width <= 0) // Número inválido de casillas de anchura
         {
             TriggerError("The width must be equal or greater than one.");
             clearOfErrors = false;
             return clearOfErrors;
         }
-        if (height <= 0)
+        if (height <= 0) // Número inválido de casillas de altura
         {
             TriggerError("The height must be equal or greater than one.");
             clearOfErrors = false;
             return clearOfErrors;
         }
-        if (bombs <= 0)
+        if (bombs <= 0) // Número inválido de bombas.
         {
             TriggerError("You must have at least one bomb. Otherwise it would be boring, right?");
             clearOfErrors = false;
             return clearOfErrors;
         }
-        if ((width * height) < bombs)
+        if ((width * height) < bombs) // Más bombas que casillas.
         {
             TriggerError("The number of bombs is greater than the available space!");
             clearOfErrors = false;
@@ -178,11 +179,14 @@ public class GameManager : MonoBehaviour
         return clearOfErrors;
     }
 
+    // Hace visible el popup de error y escribe el mensaje de error en el susodicho.
     public void TriggerError(String error)
     {
+        errorMenu.SetActive(true); // Importante poner esto en True antes de modificar el menú de errores.
         ErrorManager.setErrMsg(error);
-        errorMenu.SetActive(true);
     }
+    
+    // Cierra el juego.
     public void QuitGame()
     {
         Application.Quit();
