@@ -158,6 +158,12 @@ public class GameManager : MonoBehaviour
             clearOfErrors = false;
             return clearOfErrors;
         }
+        if (width > 12 || height > 12) // Número de celdas de anchura o altura mayor al permitido.
+        {
+            TriggerError("The width and height must be equal or less than 12.");
+            clearOfErrors = false;
+            return clearOfErrors;
+        }
         if (height <= 0) // Número inválido de casillas de altura
         {
             TriggerError("The height must be equal or greater than one.");
